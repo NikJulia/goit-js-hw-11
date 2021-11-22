@@ -6,17 +6,18 @@
     <title>Заголовок страницы</title>
   </head>
   <body>
-    <!-- Так добавляются фрагменты в главные HTML-файлы страниц. -->
-    <!-- <include src="./partials/example.html"></include> -->
-    <form class="form-inline search-form js-search-form">
-      <div class="form-group">
-        <input type="text" class="form-control" name="query">
-      </div>
-
-      <button type="submit" class="btn btn-primary">Искать</button>
+    
+    <form class="search-form" id="search-form">
+      <input
+        type="text"
+        name="searchQuery"
+        autocomplete="off"
+        placeholder="Search images..."
+      />
+      <button type="submit">Search</button>
     </form>
-    <div class="js-card-container"></div>
-    <!-- Скрипт идёт последним в разметке. В нём уже подключен главный SASS-файл. -->
+    <div class="js-cards-container"></div>
+    
     <script src="./index.js"></script>
   </body>
 </html>
