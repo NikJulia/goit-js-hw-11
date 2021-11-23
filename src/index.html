@@ -7,17 +7,25 @@
   </head>
   <body>
     
-    <form class="search-form" id="search-form">
-      <input
-        type="text"
-        name="searchQuery"
-        autocomplete="off"
-        placeholder="Search images..."
-      />
-      <button type="submit">Search</button>
-    </form>
-    <div class="js-cards-container"></div>
-    
+    <section class="search">
+      <form class="search-form" id="search-form">
+        <input
+          type="text"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Search images..."
+        />
+        <button class="button form-button" type="submit">Search</button>
+      </form>
+  </section>
+
+    <div class="gallery">
+      <!-- Карточки изображений -->
+    </div>
+
+    <button type="button" class="button load-more">Load more</button>
+
+    <!-- <script src="libs/simple-lightbox/simple-lightbox.js"></script> -->
     <script src="./index.js"></script>
   </body>
 </html>

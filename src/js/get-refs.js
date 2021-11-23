@@ -1,7 +1,8 @@
 export default function getRefs() {
     return {
-      searchBox: document.querySelector('form#search-form input'),
+      searchForm: document.querySelector('form#search-form'),
       submitBtn: document.querySelector('button[type="submit"]'),
-      cardsContainer: document.querySelector('.js-cards-container'),
+      cardsContainer: document.querySelector('.gallery'),
+      loadMoreBtn: document.querySelector('.load-more'),
     };
   }
