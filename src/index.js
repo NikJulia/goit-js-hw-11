@@ -1,14 +1,13 @@
+import './css/common';
 import ImagesApiService from './js/api-service';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import getRefs from './js/get-refs';
 import SimpleLightbox from 'simplelightbox';
-import './css/common';
-import 'simplelightbox/dist/simple-lightbox.min';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import 'notiflix/dist/notiflix-3.2.2.min';
 
 const refs = getRefs();
 const imagesApiService = new ImagesApiService();
-refs.loadMoreBtn.disabled = true;
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
@@ -20,23 +19,42 @@ async function onSearch(event) {
 
     if (!imagesApiService.query) {
         refs.cardsContainer.innerHTML = '';
+        // refs.loadMoreBtn.classList.remove('is-visible');
+        onFetchError();
         return;
     } 
 
     imagesApiService.resetPage();
     refs.cardsContainer.innerHTML = '';
-    await imagesApiService.fetchImages().then(renderImages).catch(onFetchError);
-    refs.loadMoreBtn.disabled = false;
+
+    try {
+        const images = await imagesApiService.fetchImages();
+        renderImages(images);
+        refs.loadMoreBtn.classList.add("is-visible");
+
+        // if (page >= totalPages) {
+        //     refs.loadMoreBtn.classList.remove("is-visible");
+        // }
+
+        onFetchSuccess(images.totalHits);
+        
+    } catch (error) {
+        onFetchError();
+    }
+
+    // await imagesApiService.fetchImages().then(renderImages).catch(onFetchError);
 }
 
 async function onLoadMore() {
     await imagesApiService.fetchImages().then(renderImages).catch(onFetchError);
-    refs.loadMoreBtn.disabled = false;
 }
 
 function renderImages(images) {
 
-    const markup = images.map(({ largeImageURL, webformatURL, tags, likes, views, comments, downloads }) =>
+    const obj = [...images.hits];
+    console.log(obj);
+
+    const markup = obj.map(({ largeImageURL, webformatURL, tags, likes, views, comments, downloads }) =>
     `<a href="${largeImageURL}">
         <div class="photo-card">
             <img src="${webformatURL}" alt="${tags}" loading="lazy" />
@@ -68,6 +86,10 @@ function renderImages(images) {
 function renderSimpleLightbox() {
     let galleryCarousel = new SimpleLightbox('.gallery a');
     galleryCarousel.on('show.simplelightbox');
+}
+
+function onFetchSuccess(total) {
+    Notify.success(`Hooray! We found ${total} images.`);
 }
 
 function onFetchError(error) {

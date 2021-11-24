@@ -17,8 +17,9 @@ export default class ImagesApiService {
           if (data.total === 0 && data.totalHits === 0) {
             return;
           }
+        // console.log(data.totalHits);
           this.incrementPage();
-          return data.hits;
+          return data;
       });
   }
 

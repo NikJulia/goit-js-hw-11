@@ -97,13 +97,14 @@ a {
 .info {
   display: flex;
   justify-content: space-between;
+  padding: 10px;
   font-size: 14px;
 }
 
 .info-item {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin: 0 5px;
 }
 
