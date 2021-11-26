@@ -4,5 +4,6 @@ export default function getRefs() {
       submitBtn: document.querySelector('button[type="submit"]'),
       cardsContainer: document.querySelector('.gallery'),
       loadMoreBtn: document.querySelector('.load-more'),
+      toTopBtn: document.querySelector('.to-top-button'),
     };
   }
